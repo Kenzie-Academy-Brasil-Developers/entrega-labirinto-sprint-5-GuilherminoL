@@ -2,15 +2,24 @@
     width:30px;
     height:30px;
     background-color: rgb(76, 76, 250);
-}
+    }
+
+#character{
+    width:30px;
+    height:30px;
+    background-color: red;
+    }
+
 main{
     margin:auto
-}
+    }
+
 .line{
     justify-content: center;
     display:flex
-}
+    }
+
 .blank{
     width:30px;
     height:30px;
-}
+    }
