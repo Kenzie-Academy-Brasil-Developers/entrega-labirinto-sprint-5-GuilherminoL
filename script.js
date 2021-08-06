@@ -26,89 +26,152 @@ const transformMapToArray = ()=> {
 }
 
 mapArr = transformMapToArray()
+mapArrDefault = transformMapToArray()
+
 
 let position = [9,0]
-
+let victory = false
 
 document.addEventListener("keydown",element =>{
     const key = element.key
-    let lastKey = mapArr[position[0]][position[1]]
-
+    
     if (key==='ArrowDown') {
        
-       if(mapArr[position[0]+1][position[1]]!=='W'){
-        mapArr[position[0]][position[1]] =' '
-        position[0]++
-        mapArr[position[0]][position[1]] ='S'
-       }
+        if(mapArr[position[0]+1][position[1]] === 'F'){
+
+            mapArr[position[0]][position[1]] =' '
+            position[0]++
+            mapArr[position[0]][position[1]] ='S'
+            makeMaze('down')
+            victory=true
+        }
+
+        if(mapArr[position[0]+1][position[1]]!=='W'){
+
+            mapArr[position[0]][position[1]] =' '
+            position[0]++
+            mapArr[position[0]][position[1]] ='S'
+            makeMaze('down')
+        }
        
-       makeMaze()
+       
     }
+
     if (key==='ArrowUp') {
-        if(mapArr[position[0]-1][position[1]]!=='W'){
+
+        if(mapArr[position[0]-1][position[1]] === 'F'){
+
             mapArr[position[0]][position[1]] =' '
             position[0]--
             mapArr[position[0]][position[1]] ='S'
-           }
-        makeMaze()
-     }
+            makeMaze('up')
+            victory=true
+
+        }
+
+        if(mapArr[position[0]-1][position[1]]!=='W'){
+
+            mapArr[position[0]][position[1]] =' '
+            position[0]--
+            mapArr[position[0]][position[1]] ='S'
+            makeMaze('up')
+        }
+
+       
+    }
+
      if (key==='ArrowLeft') {
         
-        if(mapArr[position[0]][position[1]-1]!=='W'){
+        if(mapArr[position[0]][position[1]-1] === 'F'){
             mapArr[position[0]][position[1]] =' '
             position[1]--
             mapArr[position[0]][position[1]] ='S'
-           }
-        makeMaze()
+            makeMaze('left')
+            victory=true
+        }
+
+        if(mapArr[position[0]][position[1]-1]!=='W' && mapArr[position[0]][position[1]-1]){
+
+            mapArr[position[0]][position[1]] =' '
+            position[1]--
+            mapArr[position[0]][position[1]] ='S'
+            makeMaze('left')
+        }
+     
      }
+
      if (key==='ArrowRight') {
         
-        if(mapArr[position[0]][position[1]+1]!=='W'){
+        if(mapArr[position[0]][position[1]+1] === 'F'){
+
             mapArr[position[0]][position[1]] =' '
             position[1]++
             mapArr[position[0]][position[1]] ='S'
-           }
-        makeMaze()
+            makeMaze('right')
+            victory=true
+        }
+
+        if(mapArr[position[0]][position[1]+1]!=='W' && mapArr[position[0]][position[1]+1]){
+
+            mapArr[position[0]][position[1]] =' '
+            position[1]++
+            mapArr[position[0]][position[1]] ='S'
+            makeMaze('right')
+        }
+        
      }
+     
+     
 })
 
-let count = 1
 
-const makeMaze = () => {
-    let mazeContainer = document.getElementById('Maze')
-    mazeContainer.innerHTML = ''
-    mapArr.map(line =>{
 
-    
-        let newLine = document.createElement('div');
-        newLine.id = 'line' + count
-        count++
-        newLine.classList.add('line')
+const makeMaze = (direction) => {
+    if(!victory){
+        let count = 1
+        const mazeContainer = document.getElementById('Maze')
+        mazeContainer.innerHTML = ''
+            mapArr.map(line =>{
+                
+            const newLine = document.createElement('div');
+            newLine.id = 'line' + count
+            count++
+            newLine.classList.add('line')
+            
+            line.map(element =>{
         
-    
-        line.map(element =>{
-    
-            if (element === "W") {
-                let wall = document.createElement('div')
-                wall.classList.add('wall')
-                newLine.appendChild(wall)
-            }
-    
-            else if(element ==="S"){
-                let character = document.createElement('div')
-                character.id = 'character'
-                newLine.appendChild(character)
-            }
-    
-            else{
-                let blank = document.createElement('div')
-                blank.classList.add('blank')
-                newLine.appendChild(blank)
-            }
+                if (element === "W") {
+                    let wall = document.createElement('img')
+                    wall.src = 'wall.png'
+                    wall.classList.add('wall')
+                    newLine.appendChild(wall)
+                }
+        
+                else if(element ==="S"){
+                    let character = document.createElement('img')
+                    character.src = direction + '.png'
+                    character.id = 'character'
+                    newLine.appendChild(character)
+                }
+        
+                else{
+                    let blank = document.createElement('div')
+                    blank.classList.add('blank')
+                    newLine.appendChild(blank)
+                }
+            })
+        
+            mazeContainer.appendChild(newLine)
         })
+    }
+    else console.log('sss')
     
-        
-        mazeContainer.appendChild(newLine)
-    })
 } 
-makeMaze()
+makeMaze('right')
+
+const playAgain = document.getElementById('playAgain')
+playAgain.addEventListener('click' ,() => {
+    mapArr = mapArrDefault
+    position = [9,0]
+    makeMaze('right')
+})

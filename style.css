@@ -1,17 +1,38 @@
+body{
+    background-color: beige;
+}
+main{
+    display: flex;
+    flex-direction: column
+}
 .wall{
     width:30px;
     height:30px;
-    background-color: rgb(76, 76, 250);
     }
+#playAgain{
+    margin: 50px auto; 
+    text-align: center;
+    width: fit-content;
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: #fff;
+    font-size:30px;
+    background-color: rgb(51, 185, 84);
+    border: 1px solid transparent
+    
+}
+#playAgain:hover{
+    transition:0.5s;
+    background-color: beige;
+    color: rgb(51, 185, 84);
+    border: 1px solid rgb(51, 185, 84);
+    cursor: pointer;
+    
+}
 
 #character{
     width:30px;
     height:30px;
-    background-color: red;
-    }
-
-main{
-    margin:auto
     }
 
 .line{
