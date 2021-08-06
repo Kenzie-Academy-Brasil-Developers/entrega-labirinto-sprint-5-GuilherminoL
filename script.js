@@ -121,7 +121,12 @@ document.addEventListener("keydown",element =>{
         
      }
      
-     
+     if (victory){
+         const playAgain = document.getElementById('playAgain')
+         const victoryMessage = document.getElementById('victoryMessage')
+         playAgain.classList.remove('hidden')
+         victoryMessage.classList.remove('hidden')
+     }
 })
 
 
@@ -173,5 +178,10 @@ const playAgain = document.getElementById('playAgain')
 playAgain.addEventListener('click' ,() => {
     mapArr = mapArrDefault
     position = [9,0]
+    victory = false
     makeMaze('right')
+    const playAgain = document.getElementById('playAgain')
+    playAgain.classList.add('hidden')
+    const victoryMessage = document.getElementById('victoryMessage')
+    victoryMessage.classList.add('hidden')
 })
